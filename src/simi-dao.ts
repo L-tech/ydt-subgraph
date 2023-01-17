@@ -60,7 +60,7 @@ export function handleDonationReceived(event: DonationReceivedEvent): void {
 
   let apop = ApprovedDonation.load(event.params.proposalId.toString())
   if(apop) {
-    apop.amountRaised = apop.amountRaised.plus(event.params.amount)
+    apop.amountRaised = apop.amountRaised.plus(entityDon.amount)
     apop.donors = apop.donors.plus(BigInt.fromI32(1))
     apop.save()
   }
