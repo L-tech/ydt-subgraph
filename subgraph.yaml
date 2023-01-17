@@ -1,0 +1,123 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: YDT
+    network: goerli
+    source:
+      address: "0xa301924bcAcfdd2696989c2a06Fc4bD2bea8BdAC"
+      abi: YDT
+      startBlock: 8179942
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ClaimedPrize
+        - DonationMade
+        - InjectedFunds
+        - LotteryUpdated
+        - SetTeamAddress
+        - SimiDAOUpdated
+        - Transfer
+      abis:
+        - name: YDT
+          file: ./abis/YDT.json
+      eventHandlers:
+        - event: ClaimedPrize(indexed address,indexed address,uint256)
+          handler: handleClaimedPrize
+        - event: DonationMade(indexed address,indexed uint256,uint256)
+          handler: handleDonationMade
+        - event: InjectedFunds(indexed uint256,uint256)
+          handler: handleInjectedFunds
+        - event: LotteryUpdated(indexed address)
+          handler: handleLotteryUpdated
+        - event: SetTeamAddress(indexed address)
+          handler: handleSetTeamAddress
+        - event: SimiDAOUpdated(indexed address)
+          handler: handleSimiDAOUpdated
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/ydt.ts
+  - kind: ethereum
+    name: SimiDAO
+    network: goerli
+    source:
+      address: "0x312A636435A6BFc5cAcd449e5380eA6AB52CC5D7"
+      abi: SimiDAO
+      startBlock: 8179942
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - CancelProposal
+        - Deposit
+        - DonationApproved
+        - DonationReceived
+        - SubmitDonationProposal
+        - SubmitMemberProposal
+        - SubmitVote
+      abis:
+        - name: SimiDAO
+          file: ./abis/SimiDAO.json
+      eventHandlers:
+        - event: CancelProposal(indexed uint256,address)
+          handler: handleCancelProposal
+        - event: Deposit(uint256)
+          handler: handleDeposit
+        - event: DonationApproved(uint256,string,bool[6],uint256,indexed address,indexed
+            address,string,string)
+          handler: handleDonationApproved
+        - event: DonationReceived(uint256,uint256)
+          handler: handleDonationReceived
+        - event: SubmitDonationProposal(uint256,string,string,uint256,uint256)
+          handler: handleSubmitDonationProposal
+        - event: SubmitMemberProposal(address,uint256,string,bool[6],uint256,indexed address)
+          handler: handleSubmitMemberProposal
+        - event: SubmitVote(indexed uint256,indexed address,uint8)
+          handler: handleSubmitVote
+      file: ./src/simi-dao.ts
+  - kind: ethereum
+    name: YDTSwapLottery
+    network: goerli
+    source:
+      address: "0x333804b91a6229ECa15e184d4cf5C4A0a95DBEF4"
+      abi: YDTSwapLottery
+      startBlock: 8179942
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - LotteryClose
+        - LotteryInjection
+        - LotteryNumberDrawn
+        - LotteryOpen
+        - NewOperatorAndTreasuryAndInjectorAddresses
+        - NewRandomGenerator
+        - OwnershipTransferred
+        - TicketsClaim
+        - TicketsPurchase
+      abis:
+        - name: YDTSwapLottery
+          file: ./abis/YDTSwapLottery.json
+      eventHandlers:
+        - event: LotteryClose(indexed uint256,uint256)
+          handler: handleLotteryClose
+        - event: LotteryInjection(indexed uint256,uint256)
+          handler: handleLotteryInjection
+        - event: LotteryNumberDrawn(indexed uint256,uint256,uint256)
+          handler: handleLotteryNumberDrawn
+        - event: LotteryOpen(indexed uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleLotteryOpen
+        - event: NewOperatorAndTreasuryAndInjectorAddresses(address,address,address)
+          handler: handleNewOperatorAndTreasuryAndInjectorAddresses
+        - event: NewRandomGenerator(indexed address)
+          handler: handleNewRandomGenerator
+        - event: TicketsClaim(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTicketsClaim
+        - event: TicketsPurchase(indexed address,indexed uint256,uint256)
+          handler: handleTicketsPurchase
+      file: ./src/ydt-swap-lottery.ts

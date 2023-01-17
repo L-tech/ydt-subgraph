@@ -1,0 +1,161 @@
+type ChangeTrustedForwarder @entity {
+  id: ID!
+  trustedForwarder: Bytes! # address
+}
+
+type ClaimedPrize @entity {
+  id: ID!
+  _user: Bytes! # address
+  _token: Bytes! # address
+  _amount: BigInt! # uint256
+}
+
+type Donation @entity {
+  id: ID!
+  proposaId: BigInt! # uint256
+  amount: BigInt! # uint256
+  user: User
+  createdAt: BigInt!
+}
+
+type InjectedFunds @entity {
+  id: ID!
+  _lotteryId: BigInt! # uint256
+  _amount: BigInt! # uint256
+}
+
+type LotteryUpdated @entity {
+  id: ID!
+  _lottery: Bytes! # address
+}
+
+
+type SetTeamAddress @entity {
+  id: ID!
+  _team: Bytes! # address
+}
+
+type SimiDAOUpdated @entity {
+  id: ID!
+  _simiDAO: Bytes! # address
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+}
+type CancelProposal @entity {
+  id: ID!
+  proposalId: BigInt! # uint256
+  applicantAddress: Bytes! # address
+}
+
+type ApprovedDonation @entity {
+  id: ID!
+  paymentRequested: BigInt! # uint256
+  category: String! # string
+  flags: [Boolean]! # bool[6]
+  proposalId: BigInt! # uint256
+  yesVotes: BigInt! # uint256
+  noVotes: BigInt! # uint256
+  donors: BigInt! # uint256
+  amountRaised: BigInt! # uint256
+  senderAddress: Bytes! # address
+  beneficiary: Bytes! # address
+  beneficiaryName: String! # string
+  beneficiarySocial: String! # string
+}
+
+type DonationReceived @entity {
+  id: ID!
+  proposalId: BigInt! # uint256
+  amount: BigInt! # uint256
+  createdAt: BigInt!
+}
+
+type SubmitDonationProposal @entity {
+  id: ID!
+  propsalId: BigInt! # uint256
+  name: String! # string
+  media: String! # string
+  duration: BigInt! # uint256
+  goal: BigInt! # uint256
+}
+
+type SubmitMemberProposal @entity {
+  id: ID!
+  proposer: Bytes! # address
+  paymentRequested: BigInt! # uint256
+  category: String! # string
+  flags: [Boolean]! # bool[6]
+  proposalId: BigInt! # uint256
+  senderAddress: Bytes! # address
+}
+
+type SubmitVote @entity {
+  id: ID!
+  proposalIndex: BigInt! # uint256
+  memberAddress: Bytes! # address
+  uintVote: Int! # uint8
+}
+type LotteryClose @entity {
+  id: ID!
+  lotteryId: BigInt! # uint256
+  firstTicketIdNextLottery: BigInt! # uint256
+}
+
+type LotteryInjection @entity {
+  id: ID!
+  lotteryId: BigInt! # uint256
+  injectedAmount: BigInt! # uint256
+}
+
+type LotteryNumberDrawn @entity {
+  id: ID!
+  lotteryId: BigInt! # uint256
+  finalNumber: BigInt! # uint256
+  countWinningTickets: BigInt! # uint256
+}
+
+type LotteryOpen @entity {
+  id: ID!
+  lotteryId: BigInt! # uint256
+  startTime: BigInt! # uint256
+  endTime: BigInt! # uint256
+  priceTicketInYDT: BigInt! # uint256
+  firstTicketId: BigInt! # uint256
+  injectedAmount: BigInt! # uint256
+}
+
+type NewOperatorAndTreasuryAndInjectorAddresses @entity {
+  id: ID!
+  operator: Bytes! # address
+  treasury: Bytes! # address
+  injector: Bytes! # address
+}
+
+type NewRandomGenerator @entity {
+  id: ID!
+  randomGenerator: Bytes! # address
+}
+
+type TicketsClaim @entity {
+  id: ID!
+  claimer: Bytes! # address
+  amount: BigInt! # uint256
+  lotteryId: BigInt! # uint256
+  numberTickets: BigInt! # uint256
+}
+
+type TicketsPurchase @entity {
+  id: ID!
+  buyer: Bytes! # address
+  lotteryId: BigInt! # uint256
+  numberTickets: BigInt! # uint256
+}
+type User @entity {
+  id: ID!
+  donation: [Donation!]! @derivedFrom(field: "user")
+}

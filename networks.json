@@ -1,0 +1,13 @@
+{
+  "goerli": {
+    "YDT": {
+      "address": "0x514a58904864630b546b6fCDbE435F4be7120cF1"
+    },
+    "SimiDAO": {
+      "address": "0x98F177F6242C1E5AA2aAe5310c21D9A84ce28050"
+    },
+    "YDTSwapLottery": {
+      "address": "0x0C6175EfCfdD95596A2f6752CEAC3fFefCb7143B"
+    }
+  }
+}
